@@ -1,6 +1,6 @@
 [all:vars]
 
-[mongo-test]
+[mongo]
 34.219.13.100 ansible_user=ubuntu  ansible_python_interpreter="/usr/bin/env python3"
 
 
