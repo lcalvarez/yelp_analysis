@@ -1,8 +1,5 @@
 [all:vars]
 
 [mongo]
-34.219.24.201 ansible_user=ubuntu  ansible_python_interpreter="/usr/bin/env python3"
-
-
-
+34.212.106.104 ansible_user=ubuntu  ansible_python_interpreter="/usr/bin/env python3"
 

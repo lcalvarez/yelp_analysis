@@ -7,6 +7,12 @@
     state: present
     update_cache: yes
 
+- name: Make sure directory for data exists on the instance
+  file:
+    path: /data/db
+    state: directory
+    mode: 0777
+
 - name: copy config file
   copy:
     src: mongodb.conf

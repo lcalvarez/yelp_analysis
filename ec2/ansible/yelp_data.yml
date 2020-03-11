@@ -1,0 +1,44 @@
+---
+- name: Download, unpack, and insert yelp data into db
+  hosts: mongo
+  
+  tasks:
+  - name: Install awscli and virtualenv on the host
+    apt:
+      name: ['python3-pip', 'virtualenv']
+      state: present
+      update_cache: yes
+
+  - name: Ensure boto, boto3, and awscli modules are installed
+    pip:
+      name: ['boto3', 'botocore', 'awscli']
+      virtualenv: /data/venv
+
+  - name: Download public yelp files from s3 
+    command: /data/venv/bin/aws --no-sign-request --region=us-west-2  s3 cp s3://yelp-analysis-lca/yelp_dataset.tar /data/yelp_dataset.tar
+    register: result
+    until: result is not failed
+    retries: 5
+
+  - name: Make sure directory for yelp data exists on the instance
+    file:
+      path: /data/yelp_dataset
+      state: directory
+
+  - name: Unpack tar files
+    command: tar -xf yelp_dataset.tar -C yelp_dataset/ 
+    args:
+      chdir: /data
+
+  - name: Import each json file into the db
+    shell: "mongoimport --db=public --collection={{ item.collection }} --file={{ item.filename }} --numInsertionWorkers=$(nproc --all)"
+    args:
+      chdir: /data
+    with_items:
+    - { collection: business, filename: yelp_dataset/business.json }
+    - { collection: checkin, filename: yelp_dataset/checkin.json }
+    - { collection: review, filename: yelp_dataset/review.json }
+    - { collection: tip, filename: yelp_dataset/tip.json }
+    - { collection: user, filename: yelp_dataset/user.json }
+    tags:
+    - import

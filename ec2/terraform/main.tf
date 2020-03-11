@@ -25,7 +25,7 @@ resource "aws_instance" "yelp-analysis" {
 
 resource "aws_ebs_volume" "ebs-volume" {
   availability_zone = "us-west-2a"
-  size              = 16
+  size              = 32
 }
 
 resource "aws_volume_attachment" "ebs_att" {
