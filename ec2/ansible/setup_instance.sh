@@ -3,6 +3,9 @@
 # Fail on error
 sleep 30 # Give time for the ebs volume to finish setting up via user_data
 
+# Install pip packages
+ansible-playbook install_pip_packages.yml -i hosts -b
+
 # Install mongo db on the running instance
 ansible-playbook mongo.yml -i hosts -b
 
@@ -10,5 +13,6 @@ ansible-playbook mongo.yml -i hosts -b
 # add it to mongodb
 ansible-playbook yelp_data.yml -i hosts -b
 
-# Install jupyterhub
+# Install jupyterhu
 ansible-playbook jupyter.yml -i hosts -b
+

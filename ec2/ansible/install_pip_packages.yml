@@ -1,0 +1,20 @@
+---
+- name: Install analysis packages
+  hosts: mongo
+  
+  tasks:
+
+  - name: Install awscli and virtualenv on the host
+    apt:
+      name: ['python3-pip', 'virtualenv'] 
+      state: present
+      update_cache: yes
+
+  - name: 
+    pip:
+      name:
+      - pymongo==3.5.1
+      - numpy==1.18.1
+      - pandas==1.0.1
+      - matplotlib==3.0.3
+      - scikit-learn===0.22.2
