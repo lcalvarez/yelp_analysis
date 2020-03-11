@@ -10,7 +10,7 @@
       state: present
       update_cache: yes
 
-  - name: 
+  - name: Install pip packages 
     pip:
       name:
       - pymongo==3.5.1

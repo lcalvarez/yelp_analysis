@@ -3,11 +3,6 @@
   hosts: mongo
   
   tasks:
-  - name: Install awscli and virtualenv on the host
-    apt:
-      name: ['python3-pip', 'virtualenv']
-      state: present
-      update_cache: yes
 
   - name: Ensure boto, boto3, and awscli modules are installed
     pip:
