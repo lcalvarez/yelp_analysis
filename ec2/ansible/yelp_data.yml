@@ -25,12 +25,20 @@
     args:
       chdir: /data
 
-  - name: Import each json file into the db
-    shell: "mongoimport --db=public --collection={{ item.collection }} --file={{ item.filename }} --numInsertionWorkers=$(nproc --all)"
+  - name: Import review file into the db
+    shell: "mongoimport --db=public --collection={{ item.collection }} --file={{ item.filename }} --numInsertionWorkers=1 --batchSize 100 >> output.log"
     args:
       chdir: /data
     with_items:
     - { collection: review, filename: yelp_dataset/review.json }
+    tags:
+    - import
+
+  - name: Import other files into the db
+    shell: "mongoimport --db=public --collection={{ item.collection }} --file={{ item.filename }} --numInsertionWorkers=$(nproc --all) --batchSize 1000 >> output.log"
+    args:
+      chdir: /data
+    with_items:
     - { collection: business, filename: yelp_dataset/business.json }
     - { collection: checkin, filename: yelp_dataset/checkin.json }
     - { collection: tip, filename: yelp_dataset/tip.json }
