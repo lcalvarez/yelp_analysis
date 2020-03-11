@@ -1,0 +1,15 @@
+---
+- hosts: mongo
+
+  vars_prompt:
+    - name: "jupyterpw"
+      prompt: "Enter a password for the Jupyter user"
+      private: yes
+      confirm: yes
+      encrypt: "sha512_crypt"
+
+  vars:
+    nossl: True
+
+  roles:
+    - jupyter

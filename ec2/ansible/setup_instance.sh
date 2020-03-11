@@ -10,3 +10,5 @@ ansible-playbook mongo.yml -i hosts -b
 # add it to mongodb
 ansible-playbook yelp_data.yml -i hosts -b
 
+# Install jupyterhub
+ansible-playbook jupyter.yml -i hosts -b

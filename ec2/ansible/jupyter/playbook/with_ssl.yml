@@ -1,0 +1,30 @@
+---
+- hosts: all
+
+  vars:
+    nossl: False
+
+  vars_prompt:
+    - name: "jupyterpw"
+      prompt: "Enter a password for the Jupyter user"
+      private: yes
+      confirm: yes
+      encrypt: "sha512_crypt"
+    - name: "ssl_country"
+      prompt: "SSL Country Name (2 letter)"
+      private: no
+    - name: "ssl_state"
+      prompt: "SSL State or Province Name (full name)"
+      private: no
+    - name: "ssl_city"
+      prompt: "SSL Locality Name (eg, City)"
+      private: no
+    - name: "ssl_org"
+      prompt: "SSL Organization Name (eg, Company)"
+      private: no
+    - name: "ssl_email"
+      prompt: "SSL Email Address"
+      private: no
+
+  roles:
+    - ansible-jupyterhub
