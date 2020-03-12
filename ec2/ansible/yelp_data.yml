@@ -43,5 +43,32 @@
     - { collection: checkin, filename: yelp_dataset/checkin.json }
     - { collection: tip, filename: yelp_dataset/tip.json }
     - { collection: user, filename: yelp_dataset/user.json }
+    - { collection: photo, filename: yelp_dataset/photo.json }
     tags:
     - import
+
+  - name: Install indices on business columns in datasets
+    shell: "mongo public --eval \"db.{{ item.collection }}.createIndex({business_id : 1})\""
+    args:
+      chdir: /data
+    with_items:
+    - { collection: business }
+    - { collection: checkin }
+    - { collection: tip }
+    - { collection: user }
+    - { collection: review }
+    - { collection: photo }
+    tags:
+    - index
+
+
+  - name: Install indices on stars columns in datasets
+    shell: "mongo public --eval \"db.{{ item.collection }}.createIndex({stars : 1})\""
+    args:
+      chdir: /data
+    with_items:
+    - { collection: business}
+    - { collection: review}
+    tags:
+    - index 
+

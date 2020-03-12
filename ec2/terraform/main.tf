@@ -8,6 +8,7 @@ resource "aws_instance" "yelp-analysis" {
   instance_type          = "t2.medium"
   vpc_security_group_ids = [aws_security_group.instance.id]
   key_name = "ssh-access"
+  availability_zone = "us-west-2a"
   user_data = <<-EOF
               #!/bin/bash
               sudo file -s /dev/xvdf
