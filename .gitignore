@@ -2,4 +2,5 @@ ec2/access_keys.sh
 ec2/terraform/terraform.*
 ec2/terraform/.terraform/
 ec2/terraform/terraform
-ec2/terraform/.terraform.tfstate.lock.info  
+ec2/terraform/.terraform.tfstate.lock.info
+*.ipynb  
