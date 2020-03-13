@@ -92,17 +92,17 @@ To do so correctly, please follow the instructions below!
 
         Make sure to keep watch of the run and answer `yes` to connect via SSH.
         Make sure to simply press Enter when prompted for a jupyterhub password!
-        If you encounter any connectivity errors, just try to restart
-        ./setup_instance.sh since the commands are idempotent and ssh does not
-        have perfect connectivity. You will see [WARNING] with ansible but that
-        is okay. If you are having SSH connection issues, make your the
-        'ssh-access.pem' key is in your ssh agent. If there are other issues
-        that are suspected to be intermittent, try again by doing:
+        You will see [WARNING] with ansible but that is okay. If you are having
+        SSH connection issues, make your the 'ssh-access.pem' key is in your ssh
+        agent. If there are other issues that are suspected to be intermittent,
+        try again by doing:
             ./terraform destroy
         to bring the instance down and then rebuild using:
             ./terraform apply
         to bring another instance back up. Remember to copy the public IP
-        and update 'ec2/ansible/hosts' with the IP address.
+        and update 'ec2/ansible/hosts' with the IP address. In general, if you
+        see an issue just use terraform to destroy and bring back up the
+        deploy.
 
     c.) When finished with all of the above, go to your browser and type in:
         <public ip>:8000
