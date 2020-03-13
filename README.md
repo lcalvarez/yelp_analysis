@@ -86,13 +86,15 @@ To do so correctly, please follow the instructions below!
             ./setup_instance.sh
         This file will install:
         - MongoDB
-        - Migrate the yelp data from S3 and insert into the DB with indices
+        - Migrate the yelp data from a public S3 bucket and insert into the DB
+          with indices applied
         - Install jupyterhub
         - Move our analysis workbook to the proper location
 
         
         Make sure to keep watch of the run and answer `yes` to connect via SSH.
         Make sure to simply press Enter when prompted for a jupyterhub password!
+        
         
         You will see [WARNING] with ansible but that is okay. If you are having
         SSH connection issues, make your the 'ssh-access.pem' key is in your ssh
@@ -111,12 +113,16 @@ To do so correctly, please follow the instructions below!
         Log in with the user `jupyter` and no password. You should be able to
         see the notebook there and open up the yelp data analysis. Note that
         the connection will not be SSL encrypted which would not be good for
-        a production system. This is acceptable for now to demonstrate the
+        a production system. This is okay for now to demonstrate the
         deployment but should be modified in the future. Open up the notebook
         and you should be able to run code, if desired. The analysis is
-        present there with the report.
+        present there with the write-up/report.
 
-    d.) When finished, run:
+    d.) Note that the notebook is also present in 'yelp_analysis/' as Yelp-
+        Data-Analysis.ipynb so that can be brought up locally with a simple
+        jupyter notebook deploy to a virtual environment.
+
+    e.) When finished, run:
             ./terraform destroy
         in ec2/terraform to remove the infrastructure.
 
@@ -135,6 +141,11 @@ solutions, at least in a beginning scope.
 to encapsulating data preparation with the analysis combined into a report-like
 structure.
 
+- There is room to consider perhaps using some sort of Spark/Hadoop cluster
+  for this data. I decided to use a more economical approach with a simple
+  EC2/DB instance. I don't think these are dichotomous but I had considered
+  what it might look like.
+
 - Rules to follow for a production system that were not followed here
   in order to increase ease-of-deployment:
   - Do not set the instance in a public subnet, rather set it in a private
@@ -149,8 +160,13 @@ structure.
   - Dockerize terraform and ansible requirements with 'yelp_analysis' repo.
   - Do not use admin access keys but specific keys for creating infrastructure
 
+- There are many places to improve here! Two major areas are just having a more
+  robust understanding of linux system administration such that I could understand
+  all the permissions details of the db and jupyter installs. The other is a more
+  robust understanding of the modeling process. These would be two items I would
+  work on and continue to strengthen.
 
-References/github code used for deployment:
+I used these references/github code to help with the deployment:
 https://medium.com/@_oleksii_/how-to-install-tune-mongodb-using-ansible-693a40495ca1
 https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180
 https://github.com/jenkstom/ansible-jupyterhub
