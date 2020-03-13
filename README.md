@@ -110,7 +110,9 @@ To do so correctly, please follow the instructions below!
         see the notebook there and open up the yelp data analysis. Note that
         the connection will not be SSL encrypted which would not be good for
         a production system. This is acceptable for now to demonstrate the
-        deployment but should be modified.
+        deployment but should be modified in the future. Open up the notebook
+        and you should be able to run code, if desired. The analysis is
+        present there with the report.
 
 
 ---------------------------- Technical Notes -----------------------------------
