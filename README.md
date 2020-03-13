@@ -90,8 +90,10 @@ To do so correctly, please follow the instructions below!
         - Install jupyterhub
         - Move our analysis workbook to the proper location
 
+        
         Make sure to keep watch of the run and answer `yes` to connect via SSH.
         Make sure to simply press Enter when prompted for a jupyterhub password!
+        
         You will see [WARNING] with ansible but that is okay. If you are having
         SSH connection issues, make your the 'ssh-access.pem' key is in your ssh
         agent. If there are other issues that are suspected to be intermittent,
@@ -113,6 +115,10 @@ To do so correctly, please follow the instructions below!
         deployment but should be modified in the future. Open up the notebook
         and you should be able to run code, if desired. The analysis is
         present there with the report.
+
+    d.) When finished, run:
+            ./terraform destroy
+        in ec2/terraform to remove the infrastructure.
 
 
 ---------------------------- Technical Notes -----------------------------------
@@ -144,7 +150,7 @@ structure.
   - Do not use admin access keys but specific keys for creating infrastructure
 
 
-References:
+References/github code used for deployment:
 https://medium.com/@_oleksii_/how-to-install-tune-mongodb-using-ansible-693a40495ca1
 https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180
 https://github.com/jenkstom/ansible-jupyterhub
