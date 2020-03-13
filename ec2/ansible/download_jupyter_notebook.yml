@@ -13,3 +13,5 @@
   - name: Change permissions for writing
     command: "chmod 666 /home/jupyter/Yelp-Data-Analysis.ipynb"
 
+  - debug:
+      msg: "Please use the above public IP and go to <IP>:8000 to see the notebook. Login with user jupyter and no password if you did not input any!"

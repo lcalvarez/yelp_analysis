@@ -159,6 +159,8 @@ structure.
   - Use SSL for connections over the internet.
   - Dockerize terraform and ansible requirements with 'yelp_analysis' repo.
   - Do not use admin access keys but specific keys for creating infrastructure
+  - Do not use public s3 buckets for data & analyses. This was used to circumvent
+    the need for credentials.
 
 - There are many places to improve here! Two major areas are just having a more
   robust understanding of linux system administration such that I could understand

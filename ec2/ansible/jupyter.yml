@@ -3,7 +3,7 @@
 
   vars_prompt:
     - name: "jupyterpw"
-      prompt: "Enter a password for the Jupyter user"
+      prompt: "Please enter a password for the Jupyter user. Press enter to use no password."
       private: yes
       confirm: yes
       encrypt: "sha512_crypt"
