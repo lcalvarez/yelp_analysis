@@ -47,7 +47,7 @@
     tags:
     - import
 
-  - name: Install indices on business columns in datasets
+  - name: Install indices on business_id columns in datasets
     shell: "mongo public --eval \"db.{{ item.collection }}.createIndex({business_id : 1})\""
     with_items:
     - { collection: business }
