@@ -11,7 +11,7 @@
   file:
     path: /data/db
     state: directory
-    mode: 0666
+    mode: 0777
 
 - name: copy config file
   copy:
