@@ -1,0 +1,15 @@
+---
+- name: Download jupyter notebook from s3
+  hosts: mongo
+  
+  tasks:
+
+  - name: Download analysis notebook from s3 
+    command: "/data/venv/bin/aws --no-sign-request --region=us-west-2  s3 cp s3://yelp-analysis-lca/Yelp-Data-Analysis.ipynb /home/jupyter"
+    register: result
+    until: result is not failed
+    retries: 5
+
+  - name: Change permissions for writing
+    command: "chmod 666 /home/jupyter/Yelp-Data-Analysis.ipynb"
+

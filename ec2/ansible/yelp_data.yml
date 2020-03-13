@@ -49,8 +49,6 @@
 
   - name: Install indices on business columns in datasets
     shell: "mongo public --eval \"db.{{ item.collection }}.createIndex({business_id : 1})\""
-    args:
-      chdir: /data
     with_items:
     - { collection: business }
     - { collection: checkin }
@@ -64,11 +62,16 @@
 
   - name: Install indices on stars columns in datasets
     shell: "mongo public --eval \"db.{{ item.collection }}.createIndex({stars : 1})\""
-    args:
-      chdir: /data
     with_items:
     - { collection: business}
     - { collection: review}
     tags:
     - index 
+
+  - name: Install indices on date columns in datasets
+    shell: "mongo public --eval \"db.{{ item.collection }}.createIndex({date: 1})\""
+    with_items:
+    - { collection: review }
+    tags:
+    - index
 
