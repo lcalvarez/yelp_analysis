@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
 # Fail on error
-sleep 30 # Give time for the ebs volume to finish setting up via user_data
+sleep 10 # Give time for the ebs volume to finish setting up via user_data
+
+# Setup ebs volume
+ansible-playbook setup_ebs_volume.yml -i hosts -b
 
 # Install pip packages
 ansible-playbook install_pip_packages.yml -i hosts -b

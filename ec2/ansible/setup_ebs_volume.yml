@@ -1,0 +1,18 @@
+---
+- name: Install EBS volume as filesystem
+  hosts: mongo
+  
+  tasks:
+
+  - name: Read file
+    command: file -s /dev/xvdf
+
+  - name: Make the filesystem
+    command: mkfs -t ext4 /dev/xvdf
+
+  - name: Create data directory for db
+    command: mkdir /data
+
+  - name: Mount the volume on the data directory
+    command: mount /dev/xvdf /data/
+

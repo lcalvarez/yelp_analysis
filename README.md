@@ -53,7 +53,7 @@ To do so correctly, please follow the instructions below!
     the yelp_analysis/requirements.txt file in that environment. Ansible is
     a part of those packages. Assuming you have your `ssh-access.pem` key
     in your agent, you should be able to SSH into an instance created with
-    our terraform code.
+    our terraform code now with Ansible.
 
 
 ---------------------------- Running the ETL & Analysis ------------------------
@@ -69,7 +69,12 @@ To do so correctly, please follow the instructions below!
             ./terraform apply
         Note that there will be output of the public IP of that instance at the
         end of the command. We will use this IP with Ansible to tell it what
-        instance to modify.
+        instance to modify. Output example:
+            Outputs:
+            
+            public_ip: XXXXXXXX                         
+        The instance name will be yelp-analysis and can be found in the us-west-2
+        EC2 dashboard.
 
     b.) Second, use the public IP associated with the instance that was in the
         output of the previous command and modify the following file:
@@ -90,12 +95,22 @@ To do so correctly, please follow the instructions below!
         If you encounter any connectivity errors, just try to restart
         ./setup_instance.sh since the commands are idempotent and ssh does not
         have perfect connectivity. You will see [WARNING] with ansible but that
-        is okay.
+        is okay. If you are having SSH connection issues, make your the
+        'ssh-access.pem' key is in your ssh agent. If there are other issues
+        that are suspected to be intermittent, try again by doing:
+            ./terraform destroy
+        to bring the instance down and then rebuild using:
+            ./terraform apply
+        to bring another instance back up. Remember to copy the public IP
+        and update 'ec2/ansible/hosts' with the IP address.
 
     c.) When finished with all of the above, go to your browser and type in:
         <public ip>:8000
         Log in with the user `jupyter` and no password. You should be able to
-        see the notebook there and open up the yelp data analysis.
+        see the notebook there and open up the yelp data analysis. Note that
+        the connection will not be SSL encrypted which would not be good for
+        a production system. This is acceptable for now to demonstrate the
+        deployment but should be modified.
 
 
 ---------------------------- Technical Notes -----------------------------------
@@ -113,7 +128,7 @@ to encapsulating data preparation with the analysis combined into a report-like
 structure.
 
 - Rules to follow for a production system that were not followed here
-  for ease-of-deployment:
+  in order to increase ease-of-deployment:
   - Do not set the instance in a public subnet, rather set it in a private
     subnet.
   - Identify analytics use-cases and have database/read solution based off those
@@ -124,6 +139,7 @@ structure.
   - Lock-down user and db permissions structure on jupyterhub and mongodb.
   - Use SSL for connections over the internet.
   - Dockerize terraform and ansible requirements with 'yelp_analysis' repo.
+  - Do not use admin access keys but specific keys for creating infrastructure
 
 
 References:
